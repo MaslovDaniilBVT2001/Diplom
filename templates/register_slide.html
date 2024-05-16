@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <style>
+        .popup {
+            position: absolute;
+            top: 100%; /* Позиционируем всплывающее сообщение под формой */
+            left: 0;
+            width: 100%;
+            background-color: #f8d7da; /* Цвет фона */
+            color: #721c24; /* Цвет текста */
+            border: 1px solid #f5c6cb; /* Граница */
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень */
+            z-index: 999; /* Позиционируем поверх других элементов */
+            display: none; /* Скрыть по умолчанию */
+        }
+
+        .error-message {
+            color: #d9534f; /* Красный цвет */
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Регистрация</h1>
+        <form id="register_form" method="post" action="/register/" onsubmit="validateForm(event)">
+
+            <label for="first_name">Имя:</label>
+            <input type="text" id="first_name" name="first_name">
+            <span class="error-message" id="first_name_error"></span><br>
+            <label for="last_name">Фамилия:</label>
+            <input type="text" id="last_name" name="last_name">
+            <span class="error-message" id="last_name_error"></span><br>
+            <label for="username">Логин:</label>
+            <input type="text" id="username" name="username">
+            <span class="error-message" id="username_error"></span><br>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password">
+            <span class="error-message" id="password_error"></span><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <span class="error-message" id="email_error"></span><br>
+            <label for="role">Роль:</label>
+            <select id="role" name="role">
+                <option value="">Выбрать</option>
+                <option value="admin">Администратор</option>
+                <option value="employee">Сотрудник</option>
+            </select>
+            <span class="error-message" id="role_error"></span><br>
+            <input type="submit" value="Регистрация">
+        </form>
+        <div class="popup" id="error_popup">
+            <p id="error_message"></p>
+        </div>
+        <p id="success_message" style="display: none; color: green;">Регистрация успешна! Теперь вы можете <a href="/login-form/">войти</a>.</p>
+        <a>Уже зарегистрированы?</a>
+        <a href="/login-form/">Вход</a>
+    </div>
+    <script>
+        function validateForm(event) {
+            var firstName = document.getElementById("first_name").value;
+            var lastName = document.getElementById("last_name").value;
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var email = document.getElementById("email").value;
+            var role = document.getElementById("role").value;
+    
+            // Проверка наличия значений в обязательных полях
+            if (!firstName || !lastName || !username || !password || !email || !role) {
+                var errorMessage = "Пожалуйста, заполните все поля формы.";
+                document.getElementById("error_message").innerText = errorMessage;
+                document.getElementById("error_popup").style.display = "block";
+                event.preventDefault(); // Отменяем отправку формы
+            }
+        }
+    </script>
+</body>
+</html>

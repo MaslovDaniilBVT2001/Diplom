@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <style>
+        .popup {
+            position: absolute;
+            top: 100%; /* Позиционируем всплывающее сообщение под формой */
+            left: 0;
+            width: 100%;
+            background-color: #f8d7da; /* Цвет фона */
+            color: #721c24; /* Цвет текста */
+            border: 1px solid #f5c6cb; /* Граница */
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень */
+            z-index: 999; /* Позиционируем поверх других элементов */
+            display: none; /* Скрыть по умолчанию */
+        }
+
+        .error-message {
+            color: #d9534f; /* Красный цвет */
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Вход</h1>
+        <form id="loginForm" method="post" action="/login/" onsubmit="validateForm(event)">
+            <label for="username">Логин:</label>
+            <input type="text" id="username" name="username">
+            <span class="error-message" id="username_error"></span><br>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password">
+            <span class="error-message" id="password_error"></span><br>
+            <input type="submit" value="Войти">
+        </form>
+        <div class="popup" id="errorPopup">
+            <p id="errorMessage"></p>
+        </div>
+        <a>Еще не зарегистрированы?</a>
+        <a href="/register-form/">Регистрация</a>
+    </div>
+    <script>
+        function validateForm(event) {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var errorMessage = "";
+            
+            if (username === "") {
+                errorMessage += "Введите логин.<br>";
+            }
+            
+            if (password === "") {
+                errorMessage += "Введите пароль.<br>";
+            }
+            
+            if (errorMessage !== "") {
+                document.getElementById("errorMessage").innerHTML = errorMessage;
+                document.getElementById("errorPopup").style.display = "block";
+                event.preventDefault(); // Отменяем отправку формы
+            }
+        }
+    </script>
+</body>
+</html>
